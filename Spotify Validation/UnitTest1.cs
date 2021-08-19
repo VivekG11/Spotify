@@ -111,5 +111,33 @@ namespace Spotify_Validation
                 System.Console.WriteLine(response.ErrorMessage);
             }
         }
+
+        [TestMethod]
+        public void UpdatePlaylistDetails()
+        {
+            string token = " Bearer BQB4Fp_9VyHfL3mG7vsCnLxRcfcONbrwVp_PafCt_2WiMk5aP2MsiZ6xvqiZyxsKLg7g2lJsbZmENh5PUW_hr50c6Kev-ZSz3EaqmdagJUVvUZ3LY4tGQnLDGdzG4zvfK93HllZ_XkVTsutjzdWScWdjTZQlnoANvNSNMOhEuj4YVn8mOhAUeZhP_ZP57u9BGgGZrMq1ljZKqwtGMnHx6YBAXCGnXAD8MZgOEMmegA";
+            string getUrl = "https://api.spotify.com/v1/playlists/1VycgeJFTpPqvyfKJNqQph";
+            string jsonBody = "{" +
+                                 "\"name\":\"Vivek's New Playlist\"," +
+                                 "\"description\": \"Feel Good Songs\"," +
+                                  "\"public\": false" +
+                               "}";
+            client = new RestClient();
+            request = new RestRequest(getUrl);
+            request.AddHeader("Authorization", "Token" + token);
+            request.AddJsonBody(jsonBody);
+            response = client.Put(request);
+            Assert.AreEqual(200,(int)response.StatusCode);
+            if (response.IsSuccessful)
+            {
+                System.Console.WriteLine("test Validated successfully with status code " + response.StatusCode + " with response :" + response.Content);
+
+            }
+            else
+            {
+                System.Console.WriteLine(response.ErrorException);
+                System.Console.WriteLine(response.ErrorMessage);
+            }
+        }
     }
 }
