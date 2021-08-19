@@ -139,5 +139,31 @@ namespace Spotify_Validation
                 System.Console.WriteLine(response.ErrorMessage);
             }
         }
+
+        [TestMethod]
+        public void DeleteItemFromPlaylist()
+        {
+            string token = " Bearer BQAD9tvd_NBV1hLF6krptJlvslro2x7mNoeWstK6TK8Ry-qnns_gInGN5MBaNOGPyNLCTo2AVscUOoirwaF2Cu0NqzQ_KhII-ad7o57nk9CiR74BSaBL06-C3K8Xo787-E6c1R9dRm5XWIMDohsStBRcfB1-o9WXrFE9ErbvVvieIIwElnSkIVYLMCqnoLtr3Nzoe88M4YobWTN8zySJwmrRZLzohvYsUFJR-q8ePg";
+            string getUrl = "https://api.spotify.com/v1/playlists/7slHlUsln7qYRBblmMwZUY/tracks";
+            string json = "{ \"tracks\":" +
+                            "[{ \"uri\": \"spotify:track:3lPr8ghNDBLc2uZovNyLs9\" }]}";
+       
+        client = new RestClient();
+            request = new RestRequest(getUrl);
+            request.AddHeader("Authorization", "Token" + token);
+            request.AddJsonBody(json);
+            response = client.Delete(request);
+            Assert.AreEqual(200, (int)response.StatusCode);
+            if (response.IsSuccessful)
+            {
+                System.Console.WriteLine("test Validated successfully with status code " + response.StatusCode + " with response :" + response.Content);
+
+            }
+            else
+            {
+                System.Console.WriteLine(response.ErrorException);
+                System.Console.WriteLine(response.ErrorMessage);
+            }
+        }
     }
 }
